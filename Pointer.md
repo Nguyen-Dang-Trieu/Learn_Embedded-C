@@ -2,9 +2,22 @@
 
 In C programming, **pointers** are variables that store the memory address of another variable. Instead of holding a direct value, pointers hold the location where a value is stored in memory. Pointers are a powerful feature of C, especially in **microcontroller programming**, where they are used to interact with memory directly, manipulate hardware registers, and manage dynamic memory.
 
+# 📚 Table of Contents
+- [What is a Pointer](#what-is-a-pointer)
+- [Pointer Syntax](#pointer-syntax)
+- [Pointer operations](#pointer-operations)
+- [Pointers in Functions](#pointers-in-functions)
+- [Pointers and Arrays](#pointers-and-arrays)
+- [Pointers to Structures](#pointers-to-structures)
+- [Using Pointers for Hardware Access in Microcontrollers](#using-pointers-for-hardware-access-in-microcontrollers)
+- [Function Pointer](#function-pointer)
+- [`const` Pointer, Pointer to `const`, and `const` Pointer to `const`](#const-pointer-pointer-to-const-and-const-pointer-to-const)
+
 ## What is a Pointer?
 A pointer is a variable that stores the memory address of another variable. Instead of holding data directly, it holds the address of a memory location where the data is stored. This is particularly useful in low-level programming, such as microcontroller applications, where direct memory access is often needed.   
-The **dereference operator (`*`)** is used to access the value at the address stored in a pointer, while the **address-of operator (`&`)** is used to get the memory address of a variable.
+Có hai toán tử quan trọng:
+- **dereference operator (`*`)** is used to access the value at the address stored in a pointer.
+- **address-of operator (`&`)** is used to get the memory address of a variable.
 
 ## Pointer Syntax
 
@@ -16,7 +29,7 @@ data_type *pointer_name;
 - `*`: This indicates that the variable is a pointer.
 - `pointer_name`: The name of the pointer variable.
 
-### Example of Declaring and Using Pointers
+### 💻 Example: Declaring and Using Pointers
 
 ```c
 int x = 10;          /**< Declare an integer variable */
@@ -104,7 +117,7 @@ printf("Second element: %d\n", *ptr);  /**< Dereference to get the second elemen
 - `ptr++` increments the pointer, so now it points to the next element in the array (`arr[1]`).
 - The second `printf` prints the value of the second element (`20`) by dereferencing the incremented pointer.
 
-### Key Points of Pointer Arithmetic:
+### 📌Key Points of Pointer Arithmetic:
 - **Pointer increment (`ptr++`)**: Moves the pointer to the next element in memory, considering the type of data the pointer is pointing to. For example, if `ptr` is an `int*` and the size of `int` is 2 bytes, `ptr++` will move the pointer by 2 bytes.
   
 - **Pointer decrement (`ptr--`)**: Moves the pointer to the previous element in memory.
@@ -113,7 +126,6 @@ printf("Second element: %d\n", *ptr);  /**< Dereference to get the second elemen
 
 
 ## Pointers in Functions
-
 In C programming, pointers are commonly used when passing arguments to functions. This is called "passing by reference," as opposed to "passing by value," where a copy of the variable is passed.   
 Passing by reference allows the function to modify the value of the original variable that was passed, not just a copy of it. This is particularly important in embedded systems and microcontroller programming, where functions often need to interact with hardware registers, control memory-mapped peripherals, or modify large structures efficiently.
 
@@ -447,17 +459,17 @@ Where:
 int (*function_ptr)(int, int);  /* Pointer to a function that takes two integers and returns an integer */
 ```
 
-## Assigning a Function to a Function Pointer
+### Assigning a Function to a Function Pointer
 
 To assign a function to a function pointer, simply set the function pointer to the function's name (without parentheses).
 
-### Example:
+#### Example:
 
 ```c
 function_ptr = add;  /* Function pointer pointing to 'add' function */
 ```
 
-## Calling a Function Through a Function Pointer
+### Calling a Function Through a Function Pointer
 
 Once a function pointer has been assigned to a function, it can be used to call the function. The syntax to call a function through a pointer is:
 
@@ -465,7 +477,7 @@ Once a function pointer has been assigned to a function, it can be used to call 
 (*function_ptr)(argument1, argument2, ...);
 ```
 
-### Example:
+#### Example:
 
 ```c
 int result = (*function_ptr)(5, 10);  /* Calling the 'add' function through the pointer */
@@ -477,11 +489,11 @@ Alternatively, the function can be called using the shorthand notation:
 int result = function_ptr(5, 10);  /* Same as the above line */
 ```
 
-## Example of Function Pointer in Microcontroller Code
+### Example of Function Pointer in Microcontroller Code
 
-In embedded systems, function pointers are often used for implementing callback functions, interrupt handlers, or event-driven systems. Here’s an example demonstrating the use of function pointers in a microcontroller context.
+In embedded systems, function pointers are often used for implementing **callback functions**, **interrupt handlers**, or **event-driven systems**. Here’s an example demonstrating the use of function pointers in a microcontroller context.
 
-### Example:
+#### Example:
 
 ```c
 #include <stdio.h>
@@ -523,12 +535,6 @@ int subtract(int a, int b)
     return a - b;
 }
 ```
-
-#### Explanation:
-1. The function pointer `operation` is declared to point to functions that take two integers and return an integer.
-2. The pointer `operation` is first assigned to the `add` function and then used to call it.
-3. Later, the pointer is reassigned to the `subtract` function and used again.
-
 #### Output:
 
 ```
@@ -776,7 +782,7 @@ Value: 10
 ## Conclusion
 Pointers are a crucial concept in C programming, especially in embedded systems and microcontroller programming. They allow direct manipulation of memory, efficient function argument passing, and optimized data handling. Understanding pointers enables you to write efficient, low-level code that interacts directly with hardware, which is essential for building embedded systems.
 
-### Key Takeaways:
+## Key Takeaways:
 - Pointers store memory addresses and allow direct access to memory.
 - Pointer arithmetic is useful for traversing arrays and buffers.
 - Pointers enable passing large data structures to functions efficiently.
@@ -788,15 +794,3 @@ Pointers are a crucial concept in C programming, especially in embedded systems 
 Always use pointers with care, as improper use can lead to memory corruption, crashes, or security vulnerabilities in your embedded applications.
 
 
-# 🌟 Support Me
-If you found this repository useful:
-- Subscribe to my [YouTube Channel](https://www.youtube.com/@aKaReZa75).
-- Share this repository with others.
-- Give this repository and my other repositories a star.
-- Follow my [GitHub account](https://github.com/aKaReZa75).
-
-# ✉️ Contact Me
-Feel free to reach out to me through any of the following platforms:
-- 📧 [Email: aKaReZa75@gmail.com](mailto:aKaReZa75@gmail.com)
-- 🎥 [YouTube: @aKaReZa75](https://www.youtube.com/@aKaReZa75)
-- 💼 [LinkedIn: @akareza75](https://www.linkedin.com/in/akareza75)
