@@ -3,11 +3,21 @@ Kho lưu trữ này sẽ giúp bạn điều gì:
 - Lập trình C cho vi điều khiển.
 - Cách để viết mã C hiệu quả, tối ưu.
 
-
 > [!CAUTION]
-> Điều tối quan trọng là bạn phải đọc kỹ tài liệu, từng dòng một, để đảm bảo không bỏ sót bất kỳ chi tiết nào. 
+> Điều tối quan trọng là bạn phải đọc kỹ tài liệu, từng dòng một, để đảm bảo không bỏ sót bất kỳ chi tiết nào.
 
-# 🔗 Resources
+# Blogs và Câu hỏi
+Chứa các bài viết về việc dùng C trong thực tế và các câu hỏi.
+## Blogs
+
+
+## Câu hỏi
+- [Tại sao cần phải ép kiểu con trỏ](https://viblo.asia/p/tai-sao-can-phai-ep-kieu-con-tro-ZoJjeNKe4Y7)
+- [Segmentation faults là gì ? Nguyên nhân và giải pháp](https://medium.com/@mohamedsamer1532/understanding-segmentation-fault-in-c-causes-and-solutions-ed3d1c159d76)
+
+
+
+# 🔗 Tài nguyên
 Tại đây, bạn sẽ tìm thấy bộ sưu tập các liên kết và tài liệu hữu ích liên quan đến Embedded C.
 Các tài nguyên này bao gồm bảng dữ liệu, hướng dẫn và các công cụ thiết yếu để giúp bạn bắt đầu và hướng dẫn bạn.
 
