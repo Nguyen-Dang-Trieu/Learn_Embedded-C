@@ -191,36 +191,3 @@ I will review and respond to your issue as soon as possible. Your participation 
 > [!NOTE]
 > Pages and interfaces may change over time, but the steps to create an issue generally remain the same.
 
-# 🤝 Contributing to the Repository
-To contribute to this repository, please follow these steps:
-1. **Fork the Repository**  
-2. **Clone the Forked Repository**  
-3. **Create a New Branch**  
-4. **Make Your Changes**  
-5. **Commit Your Changes**  
-6. **Push Your Changes to Your Forked Repository**  
-7. **Submit a Pull Request (PR)**  
-
-> [!NOTE]
-> Please ensure your pull request includes a clear description of the changes you’ve made.
-> Once submitted, I will review your contribution and provide feedback if necessary.
-
-# 🌟 Support Me
-If you found this repository useful:
-- Subscribe to my [YouTube Channel](https://www.youtube.com/@aKaReZa75).
-- Share this repository with others.
-- Give this repository and my other repositories a star.
-- Follow my [GitHub account](https://github.com/aKaReZa75).
-
-# 📜 License
-This project is licensed under the GPL-3.0 License. This license grants you the freedom to use, modify, and distribute the project as long as you:
-- Credit the original authors: Give proper attribution to the original creators.
-- Disclose source code: If you distribute a modified version, you must make the source code available under the same GPL license.
-- Maintain the same license: When you distribute derivative works, they must be licensed under the GPL-3.0 too.
-- Feel free to use it in your projects, but make sure to comply with the terms of this license.
-  
-# ✉️ Contact Me
-Feel free to reach out to me through any of the following platforms:
-- 📧 [Email: aKaReZa75@gmail.com](mailto:aKaReZa75@gmail.com)
-- 🎥 [YouTube: @aKaReZa75](https://www.youtube.com/@aKaReZa75)
-- 💼 [LinkedIn: @akareza75](https://www.linkedin.com/in/akareza75)
