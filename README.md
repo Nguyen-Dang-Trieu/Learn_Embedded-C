@@ -15,10 +15,6 @@ Các tài nguyên này bao gồm bảng dữ liệu, hướng dẫn và các cô
 > Các tài nguyên được trình bày chi tiết trong các phần bên dưới.
 > Để truy cập bất kỳ tài nguyên nào, chỉ cần nhấp vào liên kết màu xanh tương ứng.
 
-- [Video PlayList](./Videos.md)  
-  ---  
-  All Embedded-C videos related to this topic are available at this link, offering a visual guide to various concepts.
-
 - [Variables and Data Type in C Programming](./Variable.md)  
   ---  
   This document provides a comprehensive explanation of defining and using variables in Embedded C, with examples and best practices.
