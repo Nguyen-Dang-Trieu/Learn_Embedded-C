@@ -1,45 +1,19 @@
 # Embedded-C: A Guide to Embedded Systems Programming in C
-Welcome to the **Embedded-C** repository! This repository provides a comprehensive set of tutorials and examples focused on programming microcontrollers using the C language. Whether you're just getting started with embedded systems or looking to deepen your knowledge, this repo offers practical insights into writing efficient and effective C code for embedded applications.
+Kho lưu trữ này sẽ giúp bạn điều gì:
+- Lập trình C cho vi điều khiển.
+- Cách để viết mã C hiệu quả, tối ưu.
 
-<table>
-  <tr>
-  <td valign="top">
-  
-  > [!TIP]  
-  > If you're looking to better understand how to navigate and use my GitHub repositories — including exploring their structure, downloading or cloning projects, submitting issues, and asking questions,  
-  > everything you need is clearly explained in this video:  
-  > [aKaReZa 95 - Programming, Git - PART B](https://youtu.be/zYiUItVFRqQ)  
-  > Make sure to check it out!
-  
-  </td>
-    <td width="360" valign="middle" style="padding: 0;">
-      <a href="https://youtu.be/zYiUItVFRqQ">
-       <img src="https://img.youtube.com/vi/zYiUItVFRqQ/maxresdefault.jpg"
-             width="360"
-             alt="aKaReZa 95 - Programming, Git - PART B Thumbnail"/>
-      </a>
-    </td>
 
-  </td>
-  </tr>
-  <tr>
-  <td colspan="2">
-
-  > [!CAUTION]
-  > It is absolutely critical that you carefully read every single word of this document, line by line, to ensure you don't miss any details. Nothing can be overlooked.
-      
-  </td>
-  </tr>  
-</table>
+> [!CAUTION]
+> Điều tối quan trọng là bạn phải đọc kỹ tài liệu, từng dòng một, để đảm bảo không bỏ sót bất kỳ chi tiết nào. 
 
 # 🔗 Resources
-
-Here you will find a collection of useful links and documents related to Embedded C.  
-These resources include datasheets, tutorials, and essential tools to get you started and guide you through.
+Tại đây, bạn sẽ tìm thấy bộ sưu tập các liên kết và tài liệu hữu ích liên quan đến Embedded C.
+Các tài nguyên này bao gồm bảng dữ liệu, hướng dẫn và các công cụ thiết yếu để giúp bạn bắt đầu và hướng dẫn bạn.
 
 > [!TIP]  
-> The resources are detailed in the sections below.  
-> To access any of them, simply click on the corresponding blue link.
+> Các tài nguyên được trình bày chi tiết trong các phần bên dưới.
+> Để truy cập bất kỳ tài nguyên nào, chỉ cần nhấp vào liên kết màu xanh tương ứng.
 
 - [Video PlayList](./Videos.md)  
   ---  
