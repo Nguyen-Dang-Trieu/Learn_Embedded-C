@@ -99,3 +99,6 @@ UART Config:
 ~~~
 
 Tuy nhiên đây chưa phải là tốt nhất bởi vì singleton tồn tại nhiều vấn đề về an toàn thread, nên triển khai safe-thread
+
+# Observer
+https://peerdh.com/blogs/programming-insights/implementing-the-observer-pattern-in-c-with-function-pointers
