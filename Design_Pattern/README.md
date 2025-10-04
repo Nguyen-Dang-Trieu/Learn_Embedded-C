@@ -102,3 +102,103 @@ Tuy nhiên đây chưa phải là tốt nhất bởi vì singleton tồn tại n
 
 # Observer
 https://peerdh.com/blogs/programming-insights/implementing-the-observer-pattern-in-c-with-function-pointers
+
+## 💡 Example
+~~~c
+#include <stdio.h>
+#include <stdbool.h>
+
+
+// Triển khai cơ bản Observer
+// Bước 1: Xác định struct của object và Observer
+#define MAX_OBSERVERS 10
+
+typedef struct {
+  void (*update)(float temperature);
+} Observer_t;
+
+typedef struct {
+  Observer_t* observers[MAX_OBSERVERS];
+  int         observer_count;
+  float       temperature;
+  
+} Subject_t;
+
+
+// bước 2: Triển khai các hàm của subject
+void add_observer(Subject_t* subject, Observer_t* observer) {
+  bool exists = false;
+  for(int i = 0; i < subject->observer_count; i++) {
+    if(subject->observers[i] == observer) {
+      exists = true;
+      break;
+    }
+  }
+  
+  if(!exists && subject->observer_count < MAX_OBSERVERS) {
+    subject->observers[subject->observer_count++] = observer;
+  }
+}
+
+void remove_observer(Subject_t* subject, Observer_t* observer) {
+  for(int i = 0; i < subject->observer_count; i++) {
+    if(subject->observers[i] == observer) {
+      // Thực thi trừ trước rồi mới gán phần cử cuối cùng vào vị trí xóa
+      subject->observers[i] = subject->observers[--subject->observer_count];
+    }
+  }
+}
+
+void notify_observers(Subject_t* subject) {
+    for (int i = 0; i < subject->observer_count; i++) {
+        subject->observers[i]->update(subject->temperature);
+    }
+}
+
+void set_temperature(Subject_t* subject, float temperature) {
+    subject->temperature = temperature;
+    notify_observers(subject);
+}
+
+// Bước 3: triển khai chức năng của observers
+void display_temperature(float temperature) {
+    printf("Temperature updated: %.2f\n", temperature);
+}
+
+void display_warning(float temperature) {
+    if (temperature > 30.0) {
+        printf("Warning: High temperature! %.2f\n", temperature);
+    }
+}
+
+
+int main()
+{
+  Subject_t weather_station = { .observer_count = 0, .temperature = 0.0 };
+
+  Observer_t display1 = { .update = display_temperature };
+  Observer_t display2 = { .update = display_warning };
+
+  add_observer(&weather_station, &display1);
+  add_observer(&weather_station, &display2);
+
+  set_temperature(&weather_station, 25.0);
+  set_temperature(&weather_station, 35.0);
+
+  remove_observer(&weather_station, &display1);
+
+  set_temperature(&weather_station, 28.0);
+
+
+  printf("\nApplication run!\n");
+  return 0;
+}
+Đầu ra chương trình
+~~~
+Temperature updated: 25.00
+Temperature updated: 35.00
+Warning: High temperature! 35.00
+
+Application run!
+~~~
+~~~
