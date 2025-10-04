@@ -25,7 +25,7 @@ Biến được khai báo với từ khóa `static` sẽ giữ nguyên giá tr�
 
 ### 🔸 Đặc điểm
 - **Scope**:
-    - Nếu khai báo **bên trong hàm** (Local) → Chỉ dùng được bên trong hàm đó.
+    - Nếu khai báo **bên trong hàm** (Local) → Chỉ dùng được bên trong hàm đó. Ứng dụng: lưu trạng thái local của hàm, số lần gọi hàm, ...
     - Nếu khai báo **ngoài hàm** (Global) → Chỉ dùng được trong `file.c` đó.
 - **Lifetime**: Static variables tồn tại trong suốt khoảng thời gian mà chương trình chạy.
 - **Storage**: Được lưu trữ trong memory, thay vì stack
