@@ -21,14 +21,16 @@ void function() {
 Since `auto` variables are local, they are created when the function is called and destroyed when the function finishes execution.
 
 ## 🔹 `static` (Static Variables)
+Biến được khai báo với từ khóa `static` sẽ giữ nguyên giá trị của nó trong suốt thời gian chương trình chạy, ngay cả khi khai báo bên trong hàm.
 
-The `static` keyword is used to extend the lifetime of a variable to the entire program (even if it's defined inside a function), while still keeping it within the scope of its definition.
+### 🔸 Đặc điểm
+- **Scope**:
+    - Nếu khai báo **bên trong hàm** (Local) → Chỉ dùng được bên trong hàm đó.
+    - Nếu khai báo **ngoài hàm** (Global) → Chỉ dùng được trong `file.c` đó.
+- **Lifetime**: Static variables tồn tại trong suốt khoảng thời gian mà chương trình chạy.
+- **Storage**: Được lưu trữ trong memory, thay vì stack
 
-- **Scope**: Local to the function or file in which they are defined (in case of file scope).
-- **Lifetime**: Static variables persist for the entire duration of the program.
-- **Storage**: Stored in a fixed location in memory, not on the stack.
-
-### Example of Static Variable:
+### 💡 Example of Static Variable:
 ```c
 void function() {
     static int count = 0;  // 'count' will retain its value between function calls.
@@ -37,9 +39,9 @@ void function() {
 }
 ```
 
-Each time `function()` is called, the variable `count` retains its previous value instead of being reinitialized.
+Each time `function()` is called, the variable `count` retains its previous value **instead of being reinitialized**.
 
-### Static Variable at File Scope:
+### 💡Static Variable at File Scope:
 ```c
 static int fileVar = 100;  // 'fileVar' is accessible only within this file, not outside it.
 ```
