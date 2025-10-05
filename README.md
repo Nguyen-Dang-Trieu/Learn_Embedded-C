@@ -6,22 +6,20 @@ Kho lưu trữ này sẽ giúp bạn điều gì:
 > [!CAUTION]
 > Điều tối quan trọng là bạn phải đọc kỹ tài liệu, từng dòng một, để đảm bảo không bỏ sót bất kỳ chi tiết nào.
 
-## Design Parttern trong Embedded System
-- Singleton
-  - 
-
-## Blogs và Câu hỏi
+## I. Blogs và Câu hỏi
 Chứa các bài viết về việc dùng C trong thực tế và các câu hỏi.
-### Blogs
-
-
-### Câu hỏi
+### 1. Blogs
+### 2. Câu hỏi
 - [Tại sao cần phải ép kiểu con trỏ](https://viblo.asia/p/tai-sao-can-phai-ep-kieu-con-tro-ZoJjeNKe4Y7)
 - [Segmentation faults là gì ? Nguyên nhân và giải pháp](https://medium.com/@mohamedsamer1532/understanding-segmentation-fault-in-c-causes-and-solutions-ed3d1c159d76)
 
+## II. Design Parttern trong Embedded System
+ Chưa ghi gì giới thiệu ở đây cả
+- Singleton
+- Observer
 
 
-# 🔗 Tài nguyên
+## III. Kiến thức về ngôn ngữ C và Embedded
 Tại đây, bạn sẽ tìm thấy bộ sưu tập các liên kết và tài liệu hữu ích liên quan đến Embedded C.
 Các tài nguyên này bao gồm bảng dữ liệu, hướng dẫn và các công cụ thiết yếu để giúp bạn bắt đầu và hướng dẫn bạn.
 
@@ -57,7 +55,6 @@ Các tài nguyên này bao gồm bảng dữ liệu, hướng dẫn và các cô
   ---  
   This document offers a comprehensive explanation of various operators in C programming, including **Arithmetic Operators**, **Relational Operators**, **Assignment Operators**, **Pre/Post Operators**, **Unary Operators**, and **Logical Operators**. It covers their usage with examples, helping to manipulate data, control flow, and perform complex computations effectively in embedded systems programming.
 
-
 - [Loops and Control Flow in C](./Loops.md)  
   ---  
   A detailed guide to different loop structures in C, such as `while`, `do-while`, and `for`, along with control flow statements like `goto`, `break`, and `continue`, with practical examples and their applications in embedded systems.
@@ -85,6 +82,30 @@ Các tài nguyên này bao gồm bảng dữ liệu, hướng dẫn và các cô
 - [Preprocessor in C](./Preprocessor.md)  
   ---  
   This document provides a comprehensive guide to preprocessor  in Embedded C, including the usage of `#define`, `#include`, conditional compilation, and compiler-specific directives like `#pragma`, `#error`, and `#warning`. It includes examples and best practices for optimizing code and managing hardware configurations efficiently in embedded systems.
+
+
+## IV. 🧪 Unit Test trong Embedded C với Unity & Ceedling
+Khi viết chương trình, đôi khi ta cần kiểm tra xem một hàm có thực thi đúng và cho ra kết quả mong muốn hay không.   
+Để làm được điều đó, ta cần test hàm với các dữ liệu đầu vào khác nhau — đây chính là mục đích của **Unit Testing**.
+### ⚙️ 1. Unity
+Unity là một **framework unit test** dành riêng cho ngôn ngữ C, được thiết kế siêu nhẹ cho các hệ thống embedded (vi điều khiển, môi trường tài nguyên hạn chế).
+
+🔹 **Tính năng chính:**
+- Cho phép viết các **test case** để kiểm tra từng **hàm hoặc module nhỏ**.
+- Có thể chạy test trên PC hoặc trên vi điều khiển thật.
+- Có assertion (kiểm tra giá trị đúng/sai) như trong các framework test hiện đại.
+
+📚 Nhấp vào link này để học: 
+
+### ⚙️2. Ceedling
+Ceedling là một **công cụ tự động build & test** dành cho ngôn ngữ C, được phát triển bởi nhóm **ThrowTheSwitch** (tác giả của Unity).
+
+🔹 **Ceedling giúp tự động hóa toàn bộ quá trình test, bao gồm:**
+- Tạo cấu trúc project sẵn sàng cho test.
+- Tích hợp Unity và CMock (hỗ trợ mô phỏng hàm phụ thuộc).
+- Hỗ trợ build, chạy test và hiển thị báo cáo kết quả chỉ bằng một lệnh.
+
+ 📚 Nhấp vào link này để học: 
 
 # 💻 How to Use Git and GitHub
 To access the repository files and save them on your computer, there are two methods available:
