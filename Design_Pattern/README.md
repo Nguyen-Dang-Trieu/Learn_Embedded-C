@@ -193,6 +193,7 @@ int main()
   printf("\nApplication run!\n");
   return 0;
 }
+~~~
 Đầu ra chương trình
 ~~~
 Temperature updated: 25.00
@@ -200,5 +201,4 @@ Temperature updated: 35.00
 Warning: High temperature! 35.00
 
 Application run!
-~~~
 ~~~
