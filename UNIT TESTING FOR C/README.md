@@ -3,6 +3,18 @@
 - https://embetronicx.com/unit-testing-tutorials/
 ## I. Unity
 Để có thể hiểu hơn về Unity thì vui lòng đọc những bài đọc tôi để phần tham khảo phía trên.
+### Assertion macro
+#### 📌 Nhóm so sánh giá trị nguyên
+- TEST_ASSERT_EQUAL(expected, actual)
+- TEST_ASSERT_EQUAL_INT(expected, actual)
+- TEST_ASSERT_EQUAL_UINT(expected, actual)
+- TEST_ASSERT_BITS(mask, expected, actual): Kiểm tra một nhóm bits cụ thể
+- TEST_ASSERT_BITS_HIGH(mask, actual)
+- TEST_ASSERT_BITS_LOW(mask, actual)
+#### 📌 Nhóm kiểm tra bộ nhớ và chuỗi
+- TEST_ASSERT_EQUAL_MEMORY(expected, actual, size)
+- TEST_ASSERT_EQUAL_STRING(expected, actual)
+- TEST_ASSERT_EQUAL_STRING_LEN(expected, actual, len)
 
 ### 1. Các bước để chạy một ví dụ đơn giản
 Trước hết ta cần phải vào [github](https://github.com/ThrowTheSwitch/Unity) để lấy 3 file trong thư mục `src/`: `unity_internals.h`, `unity.c`, `unity.h`
