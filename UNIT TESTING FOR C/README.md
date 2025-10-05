@@ -2,11 +2,13 @@
 - https://www.throwtheswitch.org/unity
 - https://embetronicx.com/unit-testing-tutorials/
 ## I. Unity
+Để có thể hiểu hơn về Unity thì vui lòng đọc những bài đọc tôi để phần tham khảo phía trên.
+
+### 1. Các bước để chạy một ví dụ đơn giản
 Trước hết ta cần phải vào [github](https://github.com/ThrowTheSwitch/Unity) để lấy 3 file trong thư mục `src/`: `unity_internals.h`, `unity.c`, `unity.h`
 
 Sau đó làm theo hướng dẫn: [Building with Make](https://www.throwtheswitch.org/build/make). Còn nhiều cách khác, bạn có thể tự tìm hiểu
 
-### 1. Các bước để chạy một ví dụ đơn giản
 Bước 1: Tạo 5 thư mục 
   - build: chứa các file thực thi và file liên kết.
   - src: toàn bộ file.c
