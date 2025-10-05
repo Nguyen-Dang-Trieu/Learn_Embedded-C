@@ -95,7 +95,7 @@ Unity là một **framework unit test** dành riêng cho ngôn ngữ C, được
 - Có thể chạy test trên PC hoặc trên vi điều khiển thật.
 - Có assertion (kiểm tra giá trị đúng/sai) như trong các framework test hiện đại.
 
-📚 Nhấp vào link này để học: 
+📚 Nhấp vào link này để học: [Unity](https://github.com/Nguyen-Dang-Trieu/Learn_Embedded-C/tree/main/UNIT%20TESTING%20FOR%20C#i-unity)
 
 ### ⚙️2. Ceedling
 Ceedling là một **công cụ tự động build & test** dành cho ngôn ngữ C, được phát triển bởi nhóm **ThrowTheSwitch** (tác giả của Unity).
