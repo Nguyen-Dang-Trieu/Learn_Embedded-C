@@ -1,3 +1,6 @@
+# Các bài đọc tham khảo chung
+- https://takethenotes.com/design-pattern/
+
 # Singleton
 Các bài đọc
 - https://tinysteps.dev/2024/01/29/creational-singleton-tao-doi-tuong-duy-nhat-cho-chuong-trinh-c/
