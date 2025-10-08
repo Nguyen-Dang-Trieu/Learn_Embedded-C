@@ -8,6 +8,9 @@ Kho lưu trữ này sẽ giúp bạn điều gì:
 
 ## I. Blogs và Câu hỏi
 Chứa các bài viết về việc dùng C trong thực tế và các câu hỏi.
+
+[Series Kiến thức thực tế về C](https://viblo.asia/s/series-kien-thuc-thuc-te-ve-c-Rk74ayjD4eO)
+
 ### 1. Blogs
 ### 2. Câu hỏi
 - [Tại sao cần phải ép kiểu con trỏ](https://viblo.asia/p/tai-sao-can-phai-ep-kieu-con-tro-ZoJjeNKe4Y7)
