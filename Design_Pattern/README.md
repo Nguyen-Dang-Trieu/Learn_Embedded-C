@@ -148,6 +148,7 @@ void remove_observer(Subject_t* subject, Observer_t* observer) {
     if(subject->observers[i] == observer) {
       // Thực thi trừ trước rồi mới gán phần cử cuối cùng vào vị trí xóa
       subject->observers[i] = subject->observers[--subject->observer_count];
+      break;
     }
   }
 }
@@ -159,8 +160,10 @@ void notify_observers(Subject_t* subject) {
 }
 
 void set_temperature(Subject_t* subject, float temperature) {
-    subject->temperature = temperature;
-    notify_observers(subject);
+    if(subject->temperature != temperature) {
+        subject->temperature = temperature;
+        notify_observers(subject);
+    }
 }
 
 // Bước 3: triển khai chức năng của observers
