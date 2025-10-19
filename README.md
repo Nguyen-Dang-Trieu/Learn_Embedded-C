@@ -1,10 +1,7 @@
 # Embedded-C: A Guide to Embedded Systems Programming in C
-Kho lưu trữ này sẽ giúp bạn điều gì:
-- Lập trình C cho vi điều khiển.
-- Cách để viết mã C hiệu quả, tối ưu.
 
 > [!CAUTION]
-> Điều tối quan trọng là bạn phải đọc kỹ tài liệu, từng dòng một, để đảm bảo không bỏ sót bất kỳ chi tiết nào.
+> Điều quan trọng là bạn phải đọc kỹ tài liệu, từng dòng một, để đảm bảo không bỏ sót bất kỳ chi tiết nào.
 
 ## I. Blogs và Câu hỏi
 Chứa các bài viết về việc dùng C trong thực tế và các câu hỏi.
@@ -12,6 +9,7 @@ Chứa các bài viết về việc dùng C trong thực tế và các câu hỏ
 [Series Kiến thức thực tế về C](https://viblo.asia/s/series-kien-thuc-thuc-te-ve-c-Rk74ayjD4eO)
 
 ### 1. Blogs
+- Áp dụng nguyên tắc SOLID vào thiết kế embedded system.
 ### 2. Câu hỏi
 - [Tại sao cần phải ép kiểu con trỏ](https://viblo.asia/p/tai-sao-can-phai-ep-kieu-con-tro-ZoJjeNKe4Y7)
 - [Segmentation faults là gì ? Nguyên nhân và giải pháp](https://medium.com/@mohamedsamer1532/understanding-segmentation-fault-in-c-causes-and-solutions-ed3d1c159d76)
