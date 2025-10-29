@@ -13,6 +13,7 @@ Chứa các bài viết về việc dùng C trong thực tế và các câu hỏ
 ### 2. Câu hỏi
 - [Tại sao cần phải ép kiểu con trỏ](https://viblo.asia/p/tai-sao-can-phai-ep-kieu-con-tro-ZoJjeNKe4Y7)
 - [Segmentation faults là gì ? Nguyên nhân và giải pháp](https://medium.com/@mohamedsamer1532/understanding-segmentation-fault-in-c-causes-and-solutions-ed3d1c159d76)
+- [Tìm hiểu về COBS](https://gitlab.com/uprev/public/mrt/modules/Utilities/COBS)
 
 ## II. Design Parttern trong Embedded System
  Chưa ghi gì giới thiệu ở đây cả
