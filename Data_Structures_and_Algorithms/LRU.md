@@ -15,64 +15,156 @@
 #include <string.h>
 #include <stdbool.h>
 
-#define CACHE_CAPACITY 4
+// Cache 
+typedef struct {
+  int  (*get)  (void *ctx, int key, int *value);
+  void (*put)  (void *ctx, int key, int value);
+  void (*print)(void *ctx); 
+} Cache_ops_t;
 
-typedef struct Node { // Size of Node = 24 bytes (No padding)
-  int key;
-  int value;
-  struct Node *prev, *next;
-} Node;
 
-typedef struct { // Size of Cache = 24 bytes (Have padđing: 4)
-  Node *head;
-  Node *tail;
-  int size;
-} Cache_Management;
+typedef struct {
+  Cache_ops_t *ops;  // Các phương thức của cache
+  void        *ctx;  // Trỏ đến tối tượng cache 
+} Cache_t;
 
-bool pool_used[CACHE_CAPACITY]; // Trạng thái của từng vùng nhớ chứa node
-
-void *initMemoryPool_For_LRUCache(uint8_t cache_capacity) {
-  size_t _required_size = sizeof(Cache_Management) + sizeof(Node) * cache_capacity;
-  void *_start_memory_pool = (void *)malloc(_required_size);
-  if(!_start_memory_pool) {
-    printf("\nAlloc memory is failed!\n");
-    return NULL;
-  }
-  memset(_start_memory_pool, 0, _required_size);
-  memset(pool_used, 0, sizeof(pool_used));
-  
-  return _start_memory_pool;
+void Cache_init(Cache_t *c, void *ctx, Cache_ops_t* ops) 
+{
+  c->ops = ops;
+  c->ctx = ctx;
 }
 
-void *allocate_memory_From_Pool(void* start_node_memory) 
+void Cache_Put(Cache_t *c, int key, int value) 
 {
+  c->ops->put(c->ctx, key, value);
+}
+
+int Cache_Get(Cache_t *c, int key, int *value) 
+{
+ return c->ops->get(c->ctx, key, value); 
+}
+
+void Cache_Print(Cache_t *c)
+{
+    c->ops->print(c->ctx);
+}
+
+
+// LRU
+#define CACHE_CAPACITY 4
+
+typedef struct LRU LRU_t;
+/* ==== LRU API PROTOTYPES ==== */
+void LRU_Init(LRU_t *lru);
+int  LRU_Get (LRU_t *lru, int key);
+void LRU_Put (LRU_t *lru, int key, int value);
+void LRU_Print(LRU_t *lru);
+
+
+// LRU Adapter -> giải thích tại sao phải gọi là adapter?
+static int LRU_Get_adapter(void *ctx, int key, int *value)
+{
+  LRU_t *lru = (LRU_t *)ctx;
+  int v = LRU_Get(lru, key);   
+  if (v < 0)
+    return -1; // Key không tồn tại           
+
+  *value = v;
+  return 1;                    
+}
+
+static void LRU_Put_adapter(void *ctx, int key, int value)
+{
+  LRU_t *lru = (LRU_t *)ctx;
+  LRU_Put(lru, key, value);   
+}
+
+static void LRU_Print_adapter(void *ctx)
+{
+  LRU_t *lru = (LRU_t *)ctx;
+  LRU_Print(lru);
+}
+
+
+Cache_ops_t LRU_ops = {
+  .put   = LRU_Put_adapter,
+  .get   = LRU_Get_adapter,
+  .print = LRU_Print_adapter
+};
+
+typedef struct LRU_Node { // Size of Node = 24 bytes (No padding)
+  int key;
+  int value;
+  struct LRU_Node *prev, *next;
+} LRU_Node_t;
+
+typedef struct { // Size of Cache = 24 bytes (Have padđing: 4)
+  LRU_Node_t *head;
+  LRU_Node_t *tail;
+  int         size;
+} LRU_List_t;
+
+struct LRU {
+  LRU_List_t list;
+  bool       used_pool[CACHE_CAPACITY]; // Đánh dấu các vùng nhớ đã được dùng
+  void       *node_pool;           // Địa chỉ bắt đầu vùng memory pool cho node
+};
+
+void LRU_Init(LRU_t *lru) {
+  size_t required_size = sizeof(LRU_Node_t) * CACHE_CAPACITY;
+  void   *start_pool   = (void *)malloc(required_size);
+  
+  if(!start_pool) {
+    printf("\nAlloc memory is failed!\n");
+    return;
+  }
+  memset(start_pool, 0, required_size);
+  memset(lru->used_pool, 0, sizeof(lru->used_pool));
+  lru->node_pool = start_pool;
+}
+
+/**
+ * @brief Cấp phát vùng nhớ từ pool cho node
+ * @param void None
+ * @retval Địa chỉ bắt đầu vùng nhớ của node
+ */
+static void *allocate_node_From_Pool(LRU_t *lru) {
+  void *start_memory = lru->node_pool; // Địa chỉ bắt đầu memory pool dành cho node
+  
   for(uint8_t i = 0; i < CACHE_CAPACITY; i++) {
-    if(pool_used[i] == false) // empty
-    {
-      pool_used[i] = true;
-      return (uint8_t *)start_node_memory + i * sizeof(Node);
+    if(lru->used_pool[i] == false) { // empty 
+      lru->used_pool[i] = true;
+      return (uint8_t *)start_memory + i * sizeof(LRU_Node_t);
     }
   }  
   
   return NULL; // Memory pool has run out of free space
 }
 
-
-void deallocate_memory_To_Pool(void *node_ptr, void *start_node_memory) 
+/**
+ * @brief Giải phóng vùng nhớ của một node trong memory pool
+ * @param node_ptr Trỏ tới node muốn giải phóng
+ */
+static void deallocate_node_To_Pool(LRU_t *lru, void *node_ptr) 
 {
+  void *start_memory = lru->node_pool; // Địa chỉ bắt đầu memory pool dành cho node
+  
   // Important: Luôn phải kiểm tra điền tham số đầu vào
-  if (!node_ptr || !start_node_memory) return;
+  if (!node_ptr || !start_memory) return;
   
   // Tính index của node trong memory pool
-  size_t offset = (uint8_t *)node_ptr - (uint8_t *)start_node_memory;
-  uint8_t index = offset / sizeof(Node);
+  size_t offset = (uint8_t *)node_ptr - (uint8_t *)start_memory;
+  uint8_t index = offset / sizeof(LRU_Node_t);
   
   if(index >= 0 && index < CACHE_CAPACITY)
-    pool_used[index] = false;
+    lru->used_pool[index] = false;
 }
 
-Node* CreateNode(int key, int value, void *start_node_memory) {
-  Node *new = (Node *)allocate_memory_From_Pool(start_node_memory);
+static LRU_Node_t* CreateNode(LRU_t *lru, int key, int value) 
+{
+  void *start_memory = lru->node_pool; // Địa chỉ bắt đầu memory pool dành cho node
+  
+  LRU_Node_t *new = (LRU_Node_t *)allocate_node_From_Pool(lru);
   if(!new) 
   {
     printf("\nFailed to create node!\n");
@@ -87,35 +179,40 @@ Node* CreateNode(int key, int value, void *start_node_memory) {
   return new;
 }
 
-void moveToHead(Node *node, Cache_Management *LRU) {
-  if(!node || node == LRU->head) return;
+/**
+ * @brief Di chuyển node vừa thao tác lên vị trí head của list
+ * @param node Node muốn thao tác
+ * @param list_node Danh sách node hiện tại của lru
+ */
+static void moveToHead(LRU_Node_t *node, LRU_List_t *list_node) 
+{
+  if(!node || node == list_node->head) return;
   
   // Ngắt kết nối
   if (node->prev) node->prev->next = node->next;
   if (node->next) node->next->prev = node->prev;
-  if (node == LRU->tail) LRU->tail = node->prev;
+  if (node == list_node->tail) list_node->tail = node->prev;
 
   // Chèn vào đầu
-  node->next = LRU->head;
-  node->prev = NULL;
-  LRU->head->prev = node;
-  LRU->head = node;
+  node->next            = list_node->head;
+  node->prev            = NULL;
+  if(list_node->head) list_node->head->prev = node;
+  list_node->head       = node;
 
 }
 
-int GetCache(int key, void *start_memory_lru) {
-  if(!start_memory_lru) return -1;
+int LRU_Get(LRU_t *lru, int key) 
+{
+  LRU_List_t *list_node = &lru->list;
   
-  Cache_Management *LRU = (Cache_Management *)start_memory_lru;
-  
-  Node *current = LRU->head;
+  LRU_Node_t *current = list_node->head;
   while(current != NULL) {
     if(key == current->key)
     {
       int value = current->value;
       
-      if(current != LRU->head) {
-        moveToHead(current, LRU);
+      if(current != list_node->head) {
+        moveToHead(current, list_node);
       }
       
       return value;
@@ -127,96 +224,85 @@ int GetCache(int key, void *start_memory_lru) {
   return -1; // Key not found
 }
 
-void PutCache(int key, int value, void *start_memory_lru) {
-  // Important: Kiểm tra tham số đầu vào
-  if(!start_memory_lru) return;
-  
-  Cache_Management *LRU = (Cache_Management *)start_memory_lru;
-  void *start_node_memory = (uint8_t *)start_memory_lru + sizeof(Cache_Management);
+void LRU_Put(LRU_t *lru, int key, int value) 
+{
+  LRU_List_t *list_node = &lru->list;
+  void *start_memory = lru->node_pool; // Địa chỉ bắt đầu memory pool dành cho node
   
   // 1. Kiểm tra xem node đó đã tồn tại chưa (Nếu có rồi thì chỉ cần update)
-  Node* current = LRU->head;
+  LRU_Node_t* current = list_node->head;
   while(current != NULL) {
     if(key == current->key) { // Node tồn tại
       current->value = value;  // Update giá trị của node
-      moveToHead(current, LRU); // Move node lên đầu
+      moveToHead(current, list_node); // Move node lên đầu
       return;
     }
     current = current->next;
   }
 
   // 2. When cache is full, remove the oldest node
-  if(LRU->size >= CACHE_CAPACITY) {
-    Node *last_node = LRU->tail;
+  if(list_node->size >= CACHE_CAPACITY) {
+    LRU_Node_t *last_node = list_node->tail;
     if(last_node) 
     {
       if(last_node->prev) {
-        LRU->tail = last_node->prev;
-        LRU->tail->next = NULL;
+        list_node->tail = last_node->prev;
+        list_node->tail->next = NULL;
       } else { // When CACHE_CAPACITY = 1
-        LRU->head = LRU->tail = NULL;
+        list_node->head = list_node->tail = NULL;
       }
     
-      deallocate_memory_To_Pool(last_node, start_node_memory);
-      LRU->size--;
+      deallocate_node_To_Pool(lru, last_node);
+      list_node->size--;
     }
   }
 
   // 3. Tạo node và add
-  Node *newNode = CreateNode(key, value, start_node_memory);
+  LRU_Node_t *newNode = CreateNode(lru, key, value);
   if(!newNode) return;
 
   // 3.1 Add a new node to the begining
-  if(LRU->size == 0) { // Cache empty
-      LRU->head = LRU->tail = newNode;
+  if(list_node->size == 0) { // Cache empty
+      list_node->head = list_node->tail = newNode;
   } else {
   
-      newNode->next     = LRU->head;
-      LRU->head->prev = newNode;
-      LRU->head       = newNode;
+      newNode->next         = list_node->head;
+      list_node->head->prev = newNode;
+      list_node->head       = newNode;
   }
-  LRU->size++;
+  list_node->size++;
 }
 
 
-void printCache(void *start_memory_lru) {
-  Cache_Management *LRU = (Cache_Management *)start_memory_lru;
-    printf("Cache size: %d\n", LRU->size);
-    Node *current = LRU->head;
-    while (current) {
+void LRU_Print(LRU_t *lru) 
+{
+  LRU_List_t *list_node = &lru->list;  // Danh sách node của lru
+  printf("Cache size: %d\n", list_node->size);
+  LRU_Node_t *current = list_node->head;
+
+  while (current) {
         printf("[%d:%d]", current->key, current->value);
         if (current->next) printf(" <-> ");
         current = current->next;
-    }
-    printf("\n");
+  }
+  printf("\n");
 }
 
 int main()
 {
-  void *_memoryForLRUCache_ = initMemoryPool_For_LRUCache(CACHE_CAPACITY);
-  void *_cache_memory = _memoryForLRUCache_;
-  void *start_node_memory = (uint8_t *)_memoryForLRUCache_ + sizeof(Cache_Management);
-  
-  printf("_memoryForLRUCache_ = %p\n", _memoryForLRUCache_);
-  printf("_cache_memory = %p\n", _cache_memory);
-  printf("start_node_memory = %p\n", start_node_memory);
+  Cache_t cacheSystem;
+  LRU_t   lruCache;
+  LRU_Init(&lruCache);
+  Cache_init(&cacheSystem, &lruCache, &LRU_ops);
 
-  // Chỉ cần gọi PutCache với Key/Value
-  PutCache(1, 10, _cache_memory);
-  PutCache(2, 20, _cache_memory);
-  PutCache(3, 30, _cache_memory);
-  PutCache(4, 40, _cache_memory);
-  printCache(_cache_memory);
-
-  // Khi thêm key 5, hàm PutCache sẽ tự xóa key 1 rồi mới tạo node cho key 5
-  PutCache(3, 100, _cache_memory);
-  printCache(_cache_memory);
+  Cache_Put(&cacheSystem, 1, 100);
+  Cache_Put(&cacheSystem, 2, 200);
+  Cache_Put(&cacheSystem, 3, 300);
+  Cache_Put(&cacheSystem, 4, 400);
+  Cache_Print(&cacheSystem);
   
-  printf("Gia tri key1: %d\n", GetCache(1, _cache_memory)); 
-  printCache(_cache_memory);
-  
-  printf("Gia tri key3: %d\n", GetCache(3, _cache_memory)); 
-  printCache(_cache_memory);
+  Cache_Put(&cacheSystem, 1, 500);
+  Cache_Print(&cacheSystem);
 
   return 0;
 }
